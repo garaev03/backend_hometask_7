@@ -9,42 +9,41 @@ namespace hometask_6.Model
 {
     internal class Group
     {
-        private int i = 0;
-        public int No;
         public bool IsFull = false;
-        public static int Limit = 5;
-        protected Student[] students = new Student[0];
-
-
+        private int s = 0;
+        public static int g = -1;
+        public int No;
+        public static int groups=2;
+        public static int Limit=1;
+        private  static Student[,] students = new Student[groups, Limit];
 
         public void AddStudent(Student student)
         {
-            Array.Resize(ref students, Limit);
-            if (i < Limit)
+            if (s < Limit)
             {
-                students[i] = student;
-                i++;
-                if (i == Limit)
+                students[g, s] = student;
+                s++;                                    
+                if (s == Limit)
                 {
                     IsFull = true;
                     Console.WriteLine("\nTHIS GROUP IS FULL  NOW!");
                 }
             }
         }
-        public void GetStudents()
+        public  void GetStudents()
         {
-            foreach (var item in students)
+            for (int i = 0; i < groups; i++)
             {
-                if (item == null)
+                Console.WriteLine("\nGROUP NO: " + No);
+                for (int j = 0; j < Limit; j++)
                 {
-                    break;
+                    Console.WriteLine($"{j+1}. {students[i, j].Surname}");
                 }
-                else
-                    Console.WriteLine($"{Array.IndexOf(students, item) + 1}. {item.Name} {item.Surname} ");
-
             }
         }
 
+
     }
 }
+
 

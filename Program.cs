@@ -1,4 +1,5 @@
 ﻿using hometask_6.Model;
+using System;
 
 namespace hometask_6
 {
@@ -6,9 +7,8 @@ namespace hometask_6
     {
         static void Main(string[] args)
         {
-            Group group = new Group();
             Console.Write("ADD GROUP LIMIT: ");
-            Group.Limit = Convert.ToInt32(Console.ReadLine());
+            Group group = new Group();
             while (true)
             {
                 Console.WriteLine("\nFUNCTIONS");
@@ -20,14 +20,14 @@ namespace hometask_6
                 if (value == 1)
                 {
                     Console.Write("\nENTER GROUP NO: ");
-                    group = new Group
+                     group  = new Group
                     {
                         No = Convert.ToInt32(Console.ReadLine())
                     };
+                    Group.g++;
                 }
                 else if (value == 2)
                 {
-                    Console.WriteLine("GROUP NO: "+group.No+" ");
                     group.GetStudents();
                 }
                 else if (value == 3)
@@ -41,7 +41,7 @@ namespace hometask_6
                 }
                 if (value == 1)
                 {
-                    while (!group.IsFull)
+                    while (!group.IsFull)       
                     {
                         Console.WriteLine("\n1. ADD STUDENTS");
                         Console.WriteLine("2. GO BACK\n");

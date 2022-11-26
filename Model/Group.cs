@@ -3,47 +3,67 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace hometask_6.Model
 {
     internal class Group
     {
-        public bool IsFull = false;
-        private int s = 0;
-        public static int g = -1;
-        public int No;
-        public static int groups=2;
-        public static int Limit=1;
-        private  static Student[,] students = new Student[groups, Limit];
+        private int _no;
+        private int _limit;
+        public int No
+        {
+            get => _no;
+            set
+            {
+                while (value < 0)
+                {
+                    Console.WriteLine("Please enter valid group number!");
+                    Console.Write("ENTER NEW GROUP NUMBER: ");
+                    value = int.Parse(Console.ReadLine());
+                }
+                _no = value;
+            }
+        }
+        public int Limit
+        {
+            get => _limit;
+            set
+            {
+                while (value < 0)
+                {
+                    Console.WriteLine("Please enter valid group limit!");
+                    Console.Write("ENTER NEW GROUP LIMIT: ");
+                    value = int.Parse(Console.ReadLine());
+                }
+                _limit = value;
+            }
+        }
+        private Student[] students = new Student[0];
 
         public void AddStudent(Student student)
         {
-            if (s < Limit)
+            Array.Resize(ref students, students.Length + 1);
+            if (Limit < students.Length)
             {
-                students[g, s] = student;
-                s++;                                    
-                if (s == Limit)
+                Array.Resize(ref students, students.Length - 1);
+                Console.WriteLine("\nThis group is full!");
+            }
+            for (int i = 0; i < students.Length; i++)
+            {
+                if (students[i] == null)
                 {
-                    IsFull = true;
-                    Console.WriteLine("\nTHIS GROUP IS FULL  NOW!");
+                    students[i] = student;
+                    Console.WriteLine("\nStudent is added!");
+                    break;
                 }
             }
         }
-        public  void GetStudents()
+        public void GetStudent()
         {
-            for (int i = 0; i < groups; i++)
+            foreach (var stud in students)
             {
-                Console.WriteLine("\nGROUP NO: " + No);
-                for (int j = 0; j < Limit; j++)
-                {
-                    Console.WriteLine($"{j+1}. {students[i, j].Surname}");
-                }
+                Console.WriteLine($"{Array.IndexOf(students,stud)+1}. {stud.Name} {stud.Surname}");
             }
         }
-
-
     }
 }
-
-
